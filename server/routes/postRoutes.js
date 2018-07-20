@@ -19,10 +19,11 @@ router.post('/vote/:typeVote', (req, res, next) => {
   console.log('parametre URL POST:' + req.params.typeVote)
   db.addVote(req.body, req.params.typeVote)
     .then(() => db.countVote(req.body, req.params.typeVote))
-    .then(result => res.json(result))
+    .then(result => res.json(result)/* console.log('addVote res : ',result,' nbVote: ', result['nbVotes'])*/)
     .catch(next)
 })
 router.post('/soumettre', (req, res, next) => {
+  console.log('soume', req.body)
   db.addPost(req.body)
     .then(() => res.json('ok'))
     .catch(next)
