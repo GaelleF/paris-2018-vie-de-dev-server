@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res, next) => {
   db.getUsers()
-    .then(users => res.json(users))
-    .catch(next)
+   .then(users => res.json(users))
+    .catch(res, next)
 })
 
 app.get('/posts', (req, res, next) => {
@@ -100,6 +100,7 @@ app.get('/comments/:postId', (req, res, next) => {
 
 app.post('/addComments', (req, res, next) => {
   db.addComment(req.body)
+    .catch(res.send())
     .then(() => db.getCommentsOfPost(req.body.postId))
     .then(res => res.end(JSON.stringify(res)))
     .catch(next)
